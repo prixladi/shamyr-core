@@ -2,6 +2,10 @@
 
 .NET 6 Libraries project
 
+## Status
+
+[![CI](https://github.com/prixladi/shamyr-core/actions/workflows/main.yml/badge.svg)](https://github.com/prixladi/shamyr-core/actions/workflows/main.yml)
+
 ## Projects
 
 |Name | Description|
