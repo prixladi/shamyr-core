@@ -5,6 +5,10 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.0.1</Version>
+    <Authors>Prixladi</Authors>
+    <Company>Shamyr</Company>
+    <PackageDescription>Extension library dependent on Scrutor, contains dependecy injection extensions etc...</PackageDescription>
+    <RepositoryUrl>https://github.com/prixladi/shamyr-core</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,6 +5,10 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>0.0.1</Version>
+    <Authors>Prixladi</Authors>
+    <Company>Shamyr</Company>
+    <PackageDescription>Library dependent on AspNetCore, contains basic AspNetCore extensions.</PackageDescription>
+    <RepositoryUrl>https://github.com/prixladi/shamyr-core</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
