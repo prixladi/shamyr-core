@@ -12,6 +12,7 @@ namespace Shamyr.AspNetCore.Factories
 
         public IExceptionHandler? TryCreate(Exception ex)
         {
+            var comp = GetComponents();
             return GetComponents().SingleOrDefault(x => x.CanHandle(ex));
         }
     }

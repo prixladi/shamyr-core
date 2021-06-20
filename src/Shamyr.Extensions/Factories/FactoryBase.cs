@@ -6,7 +6,7 @@ namespace Shamyr.Extensions.Factories
 {
     public abstract class FactoryBase<T> where T : notnull
     {
-        private readonly IServiceProvider serviceProvider;
+        protected readonly IServiceProvider serviceProvider;
 
         protected FactoryBase(IServiceProvider serviceProvider)
         {
