@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace Shamyr.AspNetCore.Handlers.Exceptions
+namespace Shamyr.AspNetCore.Handlers.Exceptions;
+
+public class NotImplementedExceptionHandler: CodeExceptionHadlerBase<NotImplementedException>
 {
-    public class NotImplementedExceptionHandler: CodeExceptionHadlerBase<NotImplementedException>
-    {
-        protected override int StatusCode => StatusCodes.Status500InternalServerError;
-    }
+    protected override int StatusCode => StatusCodes.Status500InternalServerError;
 }

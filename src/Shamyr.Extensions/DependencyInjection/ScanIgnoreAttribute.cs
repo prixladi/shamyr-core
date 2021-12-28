@@ -1,9 +1,8 @@
 ﻿using System;
 
-namespace Shamyr.Extensions.DependencyInjection
+namespace Shamyr.Extensions.DependencyInjection;
+
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class ScanIgnoreAttribute: Attribute
 {
-    [AttributeUsage(AttributeTargets.Class)]
-    public sealed class ScanIgnoreAttribute: Attribute
-    {
-    }
 }

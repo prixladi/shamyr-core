@@ -1,30 +1,30 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
+using Shamyr.Exceptions;
 
-namespace Shamyr.AspNetCore.HttpErrors
+namespace Shamyr.AspNetCore.HttpErrors;
+
+public static class ExceptionExtensions
 {
-    public static class ExceptionExtensions
+    public static HttpErrorResponseModel ToHttpResponseModel(this Exception exception)
     {
-        public static ObjectResult ToHttpResponseModel(this Exception exception, int statusCode)
+        if (exception is null)
+            throw new ArgumentNullException(nameof(exception));
+
+        string? code = (exception as IErrorCodeException)?.ErrorCode;
+
+        return new HttpErrorResponseModel
         {
-            if (exception is null)
-                throw new ArgumentNullException(nameof(exception));
-
-            var errorResponse = new HttpErrorResponseModel
+            Message = exception.GetType().Name,
+            Code = code,
+            Errors = new ErrorModel[]
             {
-                Message = exception.GetType().Name,
-                Errors = new ErrorModel[]
+                new ErrorModel
                 {
-                    new ErrorModel
-                    {
-                        Name = exception.GetType().Name,
-                        Message = exception.Message
-                    }
+                    Name = exception.GetType().Name,
+                    Code = code,
+                    Message = exception.Message
                 }
-            };
-
-            return new ObjectResult(errorResponse) { StatusCode = statusCode };
-        }
+            }
+        };
     }
-
 }

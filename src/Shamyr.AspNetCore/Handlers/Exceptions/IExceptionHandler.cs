@@ -1,11 +1,11 @@
 ﻿using System;
-using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
-namespace Shamyr.AspNetCore.Handlers.Exceptions
+namespace Shamyr.AspNetCore.Handlers.Exceptions;
+
+public interface IExceptionHandler
 {
-    public interface IExceptionHandler
-    {
-        bool CanHandle(Exception exception);
-        ActionResult Handle(Exception ex);
-    }
+    bool CanHandle(Exception exception);
+    Task HandleAsync(HttpContext context, Exception ex);
 }

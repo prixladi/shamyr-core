@@ -3,17 +3,16 @@ using System.Linq;
 using Shamyr.AspNetCore.Handlers.Exceptions;
 using Shamyr.Extensions.Factories;
 
-namespace Shamyr.AspNetCore.Factories
-{
-    public class ExceptionHandlerFactory: FactoryBase<IExceptionHandler>, IExceptionHandlerFactory
-    {
-        public ExceptionHandlerFactory(IServiceProvider serviceProvider)
-            : base(serviceProvider) { }
+namespace Shamyr.AspNetCore.Factories;
 
-        public IExceptionHandler? TryCreate(Exception ex)
-        {
-            var comp = GetComponents();
-            return GetComponents().SingleOrDefault(x => x.CanHandle(ex));
-        }
+public class ExceptionHandlerFactory: FactoryBase<IExceptionHandler>, IExceptionHandlerFactory
+{
+    public ExceptionHandlerFactory(IServiceProvider serviceProvider)
+        : base(serviceProvider) { }
+
+    public IExceptionHandler? TryCreate(Exception ex)
+    {
+        var comp = GetComponents();
+        return GetComponents().SingleOrDefault(x => x.CanHandle(ex));
     }
 }

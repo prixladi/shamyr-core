@@ -1,15 +1,16 @@
 ﻿using System;
 
-namespace Shamyr.Exceptions
+namespace Shamyr.Exceptions;
+
+public class NotFoundException: Exception, IErrorCodeException
 {
-    public class NotFoundException: Exception
-    {
-        public NotFoundException() { }
+    public NotFoundException() { }
 
-        public NotFoundException(string message)
-          : base(message) { }
+    public NotFoundException(string message)
+      : base(message) { }
 
-        public NotFoundException(string message, Exception innerException)
-          : base(message, innerException) { }
-    }
+    public NotFoundException(string message, Exception innerException)
+      : base(message, innerException) { }
+
+    public string? ErrorCode { get; init; }
 }

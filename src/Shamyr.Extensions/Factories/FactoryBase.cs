@@ -2,25 +2,24 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Shamyr.Extensions.Factories
+namespace Shamyr.Extensions.Factories;
+
+public abstract class FactoryBase<T> where T : notnull
 {
-    public abstract class FactoryBase<T> where T : notnull
+    protected readonly IServiceProvider serviceProvider;
+
+    protected FactoryBase(IServiceProvider serviceProvider)
     {
-        protected readonly IServiceProvider serviceProvider;
+        this.serviceProvider = serviceProvider;
+    }
 
-        protected FactoryBase(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
+    protected IEnumerable<T> GetComponents()
+    {
+        return serviceProvider.GetServices<T>();
+    }
 
-        protected IEnumerable<T> GetComponents()
-        {
-            return serviceProvider.GetServices<T>();
-        }
-
-        protected T GetComponent()
-        {
-            return serviceProvider.GetRequiredService<T>();
-        }
+    protected T GetComponent()
+    {
+        return serviceProvider.GetRequiredService<T>();
     }
 }

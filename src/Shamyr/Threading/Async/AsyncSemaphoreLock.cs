@@ -2,52 +2,51 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Shamyr.Threading.Async
+namespace Shamyr.Threading.Async;
+
+public class AsyncSemaphoreLock
 {
-    public class AsyncSemaphoreLock
+    private class SemaphoreReleaser: IDisposable
     {
-        private class SemaphoreReleaser: IDisposable
-        {
-            private readonly SemaphoreSlim semaphore;
-
-            public SemaphoreReleaser(SemaphoreSlim semaphore)
-            {
-                this.semaphore = semaphore ?? throw new System.ArgumentNullException(nameof(semaphore));
-            }
-
-            public void Dispose()
-            {
-                semaphore.Release();
-            }
-        }
-
         private readonly SemaphoreSlim semaphore;
 
-        /// <summary>
-        /// Uses by default Semaphore(1, 1)
-        /// </summary>
-        public AsyncSemaphoreLock()
+        public SemaphoreReleaser(SemaphoreSlim semaphore)
         {
-            semaphore = new(1, 1);
+            this.semaphore = semaphore ?? throw new System.ArgumentNullException(nameof(semaphore));
         }
 
-        public AsyncSemaphoreLock(SemaphoreSlim semaphore)
+        public void Dispose()
         {
-            this.semaphore = semaphore ?? throw new ArgumentNullException(nameof(semaphore));
+            semaphore.Release();
         }
+    }
 
-        public async Task<IDisposable> LockAsync(CancellationToken cancellationToken)
+    private readonly SemaphoreSlim semaphore;
+
+    /// <summary>
+    /// Uses by default Semaphore(1, 1)
+    /// </summary>
+    public AsyncSemaphoreLock()
+    {
+        semaphore = new(1, 1);
+    }
+
+    public AsyncSemaphoreLock(SemaphoreSlim semaphore)
+    {
+        this.semaphore = semaphore ?? throw new ArgumentNullException(nameof(semaphore));
+    }
+
+    public async Task<IDisposable> LockAsync(CancellationToken cancellationToken)
+    {
+        await semaphore.WaitAsync(cancellationToken);
+        try
         {
-            await semaphore.WaitAsync(cancellationToken);
-            try
-            {
-                return new SemaphoreReleaser(semaphore);
-            }
-            catch
-            {
-                semaphore.Release();
-                throw;
-            }
+            return new SemaphoreReleaser(semaphore);
+        }
+        catch
+        {
+            semaphore.Release();
+            throw;
         }
     }
 }

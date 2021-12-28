@@ -1,10 +1,9 @@
 ﻿using System;
 using Shamyr.AspNetCore.Handlers.Exceptions;
 
-namespace Shamyr.AspNetCore.Factories
+namespace Shamyr.AspNetCore.Factories;
+
+public interface IExceptionHandlerFactory
 {
-    public interface IExceptionHandlerFactory
-    {
-        IExceptionHandler? TryCreate(Exception ex);
-    }
+    IExceptionHandler? TryCreate(Exception ex);
 }
